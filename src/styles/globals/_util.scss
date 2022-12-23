@@ -1,0 +1,57 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  font-family: inherit;
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  src: url("/assets/fonts/Ubuntu-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Ubuntu Medium";
+  src: url("/assets/fonts/Ubuntu-Medium.ttf");
+}
+
+:root {
+  --marine-blue: hsl(213, 96%, 18%);
+  --puplish-blue: hsl(243, 100%, 62%);
+  --pastel-blue: hsl(228, 100%, 84%);
+  --light-blue: hsl(206, 94%, 87%);
+  --strawberry-red: hsl(206, 94%, 87%);
+  
+  --cool-gray: hsl(231, 11%, 63%);
+  --light-gray: hsl(229, 24%, 87%);
+  --magnolia: hsl(217, 100%, 97%);
+  --alabaster: hsl(231, 100%, 99%);
+  --wt: hsl(0, 0%, 100%);
+  --ts: transparent;
+
+  --cn: center;
+  --rad: 0.625rem;
+  --full-size: 100%;
+  --round: calc(var(--full-size) / 2);
+  --default-font-size: 16px;
+
+  --debbug: 2px solid indianred;
+  --debbug-bg: indianred;
+  --font: "ubuntu";
+  --font-l: "Ubuntu Medium";
+}
+
+html {
+  width: 100%;
+  min-height: 100vh;
+  font-size: var(--default-font-size);
+  font-family: var(--font), sans-serif;
+
+  background-color: var(--light-gray);
+
+  body {
+  width: inherit;
+  min-width: inherit;
+  }
+}
