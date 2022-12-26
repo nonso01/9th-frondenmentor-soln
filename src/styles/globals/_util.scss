@@ -100,6 +100,7 @@ h2 {
   height: 2.4rem;
   box-shadow: 2px 1px 4px 0 rgba(0,0,0,.1);
   transition: var(--trans-default);
+  display: inline-block;
 
   &.next {
   border: 1px solid var(--marine-blue);
@@ -124,6 +125,14 @@ h2 {
     transition: var(--trans-default);
     transform: translate3d(-10%, 0, 0);
   }
+}
+
+.toggle {
+  width: 3.75rem;
+  height: 1.25rem;
+  border-radius: calc(var(--rad) * 3);
+  background-color: var(--marine-blue);
+  border:1px solid var(--marine-blue);
 }
 
 input {

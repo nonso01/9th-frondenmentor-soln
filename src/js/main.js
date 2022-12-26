@@ -3,7 +3,7 @@ const [_D, _W, log] = [document, window, console]
 
 const [html, body] = [dq("html"), dq("body")]
 
-let selectYear = false
+let selectYear = !false
 
 
 const appendSteps = (function() {
@@ -66,7 +66,7 @@ const userChoices = (function() {
   ]
 
   let s = data.map(data => {
-    return (`<div> 
+    return (`<div class=plan__box> 
     <img src=${data.icon} alt=${data.plan}>
      <div>
       <h1 class=title>${data.plan}</h1>
@@ -76,7 +76,7 @@ const userChoices = (function() {
   }).join("")
 
   plans.innerHTML = s
-
+ 
 })()
 
 const userInteractions = (function() {
