@@ -1,12 +1,141 @@
-@media screen and (max-width: 1399.98px) {
-  html {
-    background-color: var(--debbug-bg);
+.main {
+//  border: var(--debbug);
+  height: 70vh;
+  width: 80%;
+  align-self: var(--cn);
+
+  border-radius: var(--rad);
+  box-shadow: 3px 4px var(--rad) 0 rgba(0,0,0,.1);
+  background-color: var(--wt);
+
+  padding: 2%;
+
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-columns: repeat(7, 1fr);
+
+  &__steps {
+    grid-column: 1/3;
+    grid-row: 1/6;
+    border-radius: inherit;
+    background: var(--puplish-blue) url("/assets/images/bg-sidebar-desktop.svg") no-repeat border-box var(--cn)/ 100% 100%;
+    
+
+    &__box {
+      display: flex;
+      justify-content: space-evenly;
+      flex: .1 1 auto;
+
+      span {
+        color: var(--cool-gray);
+        line-height: 1.4;
+      }
+
+      i {
+        height: 80%;
+        aspect-ratio: 1;
+        border-radius: var(--round);
+        border: 2px solid var(--light-blue);
+        font-style: normal;
+
+        display: flex;
+        justify-content: var(--cn);
+        align-items: var(--cn);
+        align-self: var(--cn);
+        color: var(--wt);
+
+        // event listener
+        &.click {
+          background-color: var(--pastel-blue);
+          color: var(--marine-blue);
+        }
+      }
+
+      div {
+       height: max-content;
+       min-width: 101px;
+       align-self: var(--cn);
+      }
+    }
+  }
+
+  &__cards {
+    grid-column: 4/8;
+    grid-row: 1/6;
+    //background-color: var(--light-gray);
+  }
+}
+
+.step__box {
+   height: 60%;
+   display: flex;
+   flex-flow: column;
+   justify-content: space-evenly;
+}
+
+.card {
+  height: 100%;
+  width: 80%;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
+
+  &__info {
+    flex: .03 1 auto;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+
+    &__contact {
+      flex: .6 1 auto;
+      display: flex;
+      flex-flow: column;
+      justify-content: space-around;
+
+      label {
+        flex: .2 1 auto;
+        display: flex;
+        flex-flow: column;
+        justify-content: space-around;
+        color: var(--marine-blue);
+        font-family: var(--font-xl);
+      }
+
+      input {
+        flex: .5 1 auto;
+      }
+    }
+  }
+
+  &__plan {
+    
+  }
+
+  &__btn {
+   display: flex;
+   flex-flow: row;
+   justify-content: flex-end;
   }
 }
 
 
+
+@media screen and (max-width: 1399.98px) {
+  
+}
+
 @media screen and (max-width: 1199.98px) {
-  html {
-    background-color: aqua;
-  }
+  
+}
+
+@media screen and (max-width: 991.98px) {
+  
+}
+
+@media screen and (max-width: 767.98px) {
+  
+}
+
+@media screen and (max-width: 575.98px) {
+  
 }
