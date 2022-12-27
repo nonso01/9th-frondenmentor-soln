@@ -133,7 +133,8 @@
 
         &.click {
           border-color: var(--puplish-blue);
-          background-color: var(--light-gray);
+          background-color: hsla(228, 100%, 84%, 0.5);
+          border-color: var(--puplish-blue);
         }
 
         &:hover {
@@ -195,7 +196,6 @@
 }
 
 @media screen and (min-width: 1399.98px) {
- 
 }
 
 @media screen and (max-width: 1199.98px) {

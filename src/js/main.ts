@@ -5,6 +5,7 @@ const log: Console = console;
 const [html, body] = [dq("html"), dq("body")];
 
 let selectType: boolean = false;
+let _random: number;
 
 const appendSteps: void = (function () {
   const mainSteps: any = dq(".step__box");
@@ -51,19 +52,19 @@ function userChoices(bool: boolean): void {
       icon: "/assets/images/icon-arcade.svg",
       plan: "Arcade",
       price: selectType ? "$90/yr" : "$9/mo",
-      free:  selectType ? "2 months free"  :""
+      free: selectType ? "2 months free" : "",
     },
     {
       icon: "/assets/images/icon-advanced.svg",
       plan: "Advanced",
       price: selectType ? "$120/yr" : "$12/mo",
-      free: selectType ? "2 months free" : ""
+      free: selectType ? "2 months free" : "",
     },
     {
       icon: "/assets/images/icon-pro.svg",
       plan: "Pro",
       price: selectType ? "$150/yr" : "$15/mo",
-      free:  selectType ? "2 months free": " "
+      free: selectType ? "2 months free" : " ",
     },
   ];
   // the plans
@@ -83,8 +84,37 @@ function userChoices(bool: boolean): void {
   plans.innerHTML = s;
 }
 // called so as to display the informations
-userChoices(selectType)
+userChoices(selectType);
 
+function userSelectedChoice(): void {
+  const planBox: any = dqA(".plan__box");
+
+  planBox.forEach((element: any, i: number) => {
+    const prevBro: any = element.previousElementSibling;
+    const nextBro: any = element.nextElementSibling;
+    element.onclick = () => {
+      switch (i) {
+        case 0:
+          element.classList.toggle("click");
+          nextBro.classList?.remove("click");
+          nextBro.nextElementSibling.classList?.remove("click");
+          break;
+        case 1:
+          element.classList.toggle("click");
+          prevBro.classList?.remove("click");
+          nextBro.classList?.remove("click");
+          break;
+        case 2:
+          element.classList.toggle("click");
+          prevBro.classList?.remove("click");
+          prevBro.previousElementSibling.classList?.remove("click");
+
+          break;
+      }
+    };
+  });
+}
+userSelectedChoice();
 
 const userInteractions: void = (function () {
   // all navigation buttons
@@ -105,8 +135,11 @@ const userInteractions: void = (function () {
       const prevBro: any = dom.previousElementSibling;
       dom.classList.toggle("click");
 
-      selectType = !selectType
-      userChoices(selectType)
+      selectType = !selectType;
+      /* since the dom get's updated, you will need to re-call userSelectedChoice
+so as to keep things updated too
+*/
+      userSelectedChoice();
 
       if (dom.classList.contains("click")) {
         nextBro.classList.toggle("choice");
