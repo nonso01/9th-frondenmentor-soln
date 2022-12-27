@@ -4,7 +4,7 @@ const log: Console = console;
 
 const [html, body] = [dq("html"), dq("body")];
 
-let selectYear: boolean = !false;
+let selectType: boolean = false;
 
 const appendSteps: void = (function () {
   const mainSteps: any = dq(".step__box");
@@ -43,27 +43,30 @@ const appendSteps: void = (function () {
   mainSteps.innerHTML = s;
 })();
 
-const userChoices: void = (function () {
+function userChoices(bool: boolean): void {
   const plans: any = dq(".card__plan__select");
 
   const data = [
     {
       icon: "/assets/images/icon-arcade.svg",
       plan: "Arcade",
-      price: selectYear ? "$90/yr" : "$9/mo",
+      price: selectType ? "$90/yr" : "$9/mo",
+      free:  selectType ? "2 months free"  :""
     },
     {
       icon: "/assets/images/icon-advanced.svg",
       plan: "Advanced",
-      price: selectYear ? "$120/yr" : "$12/mo",
+      price: selectType ? "$120/yr" : "$12/mo",
+      free: selectType ? "2 months free" : ""
     },
     {
       icon: "/assets/images/icon-pro.svg",
       plan: "Pro",
-      price: selectYear ? "$150/yr" : "$15/mo",
+      price: selectType ? "$150/yr" : "$15/mo",
+      free:  selectType ? "2 months free": " "
     },
   ];
-
+  // the plans
   let s = data
     .map((data) => {
       return `<div class=plan__box> 
@@ -71,18 +74,21 @@ const userChoices: void = (function () {
      <div>
       <h1 class=title>${data.plan}</h1>
       <span> ${data.price} </span>
+      <span class="free"> ${data.free}</span>
       </div>
       </div>`;
     })
     .join("");
 
   plans.innerHTML = s;
-})();
+}
+// called so as to display the informations
+userChoices(selectType)
+
 
 const userInteractions: void = (function () {
-  // const btn = dqA(".btn")
-
-  on(".btn", {
+  // all navigation buttons
+  on(".navBtn", {
     pointerover(e: any) {
       e.preventDefault();
 
@@ -90,12 +96,34 @@ const userInteractions: void = (function () {
       setTimeout(() => e.target.classList.remove("click"), 400);
     },
   });
+
+  // the year/month toggle btn
+  on(".toggle", {
+    click(e: any) {
+      const dom: any = e.target;
+      const nextBro: any = dom.nextElementSibling;
+      const prevBro: any = dom.previousElementSibling;
+      dom.classList.toggle("click");
+
+      selectType = !selectType
+      userChoices(selectType)
+
+      if (dom.classList.contains("click")) {
+        nextBro.classList.toggle("choice");
+        prevBro.classList.toggle("choice");
+      } else {
+        prevBro.classList.toggle("choice");
+        nextBro.classList.toggle("choice");
+      }
+    },
+  });
 })();
 
 /**
- * on - a function that adds multiple events to the selected element(s)
- * @param { type: string} element
- * @param {type: object} event
+ *on - a function that adds multiple events to the selected 
+ elements
+ * @param element = string
+ * @param event = object
  */
 function on(element: string, event: any): void {
   for (let key in event) {

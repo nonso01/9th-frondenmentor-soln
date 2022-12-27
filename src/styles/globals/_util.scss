@@ -45,7 +45,7 @@
   --font: "ubuntu";
   --font-l: "Ubuntu Medium";
   --font-xl: "Ubuntu Large";
-  --font-size-small: clamp(0.8rem, 8vmin, 0.95rem);
+  --font-size-small: clamp(0.8rem, 6vmin, 0.95rem);
   --font-size-medium: clamp(1.2rem, 10vmin, 1.4rem);
   --font-size-large: clamp(1.8rem, 13vmin, 2rem);
   --font-size-xlarge: clamp(2.5rem, 20vmin, 3rem);
@@ -113,6 +113,17 @@ h2 {
     box-shadow: unset;
   }
 
+  &.time {
+    color: var(--cool-gray);
+    border-color: var(--ts);
+    background-color: var(--ts);
+    box-shadow: unset;
+
+    &.choice {
+      color: var(--marine-blue);
+    }
+  }
+
   &.next.click {
     opacity: 0.9;
     transition: var(--trans-default);
@@ -143,6 +154,12 @@ h2 {
     aspect-ratio: 1;
     background-color: var(--wt);
     border-radius: var(--round);
+    transition: var(--trans-default);
+  }
+
+  &.click:before {
+    left: 68.98%;
+    transition: var(--trans-default);
   }
 }
 

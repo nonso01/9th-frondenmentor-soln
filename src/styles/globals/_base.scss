@@ -138,9 +138,17 @@
 
         &:hover {
           transition: var(--trans-default);
-          border-color: var(--strawberry-red);
+          border-color: var(--puplish-blue);
           transform: translate3d(0, -5%, 0);
         }
+      }
+
+      .free {
+        display: inline-block;
+        color: var(--marine-blue);
+        font-family: var(--font);
+        font-size: var(--font-size-small);
+        line-height: 1.7;
       }
     }
 
