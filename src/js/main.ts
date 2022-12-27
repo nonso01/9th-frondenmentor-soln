@@ -1,12 +1,13 @@
-"use strict";
-const [_D, _W, log] = [document, window, console];
+const d: Document = document;
+const w: Window = window;
+const log: Console = console;
 
 const [html, body] = [dq("html"), dq("body")];
 
-let selectYear = !false;
+let selectYear: boolean = !false;
 
-const appendSteps = (function () {
-  const mainSteps = dq(".step__box");
+const appendSteps: void = (function () {
+  const mainSteps: any = dq(".step__box");
   const data = [
     {
       id: 1,
@@ -40,12 +41,10 @@ const appendSteps = (function () {
     .join("");
 
   mainSteps.innerHTML = s;
-
-  return 0;
 })();
 
-const userChoices = (function () {
-  const plans = dq(".card__plan__select");
+const userChoices: void = (function () {
+  const plans: any = dq(".card__plan__select");
 
   const data = [
     {
@@ -80,19 +79,17 @@ const userChoices = (function () {
   plans.innerHTML = s;
 })();
 
-const userInteractions = (function () {
+const userInteractions: void = (function () {
   // const btn = dqA(".btn")
 
   on(".btn", {
-    pointerover(e) {
+    pointerover(e: any) {
       e.preventDefault();
 
       e.target.classList.add("click");
       setTimeout(() => e.target.classList.remove("click"), 400);
     },
   });
-
-  return 0;
 })();
 
 /**
@@ -100,16 +97,16 @@ const userInteractions = (function () {
  * @param { type: string} element
  * @param {type: object} event
  */
-function on(element = "", event = {}) {
+function on(element: string, event: any): void {
   for (let key in event) {
-    const e = document.querySelectorAll(element);
-    e.forEach((el) => el.addEventListener(key, event[key]));
+    const e: any = document.querySelectorAll(element);
+    e.forEach((el: any) => el.addEventListener(key, event[key]));
   }
 }
 
-function dq(x) {
-  return _D.querySelector(x);
+function dq(x: string) {
+  return d.querySelector(x);
 }
-function dqA(x) {
-  return _D.querySelectorAll(x);
+function dqA(x: string) {
+  return d.querySelectorAll(x);
 }
