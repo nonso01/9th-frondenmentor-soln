@@ -26,7 +26,7 @@
   --pastel-blue: hsl(228, 100%, 84%);
   --light-blue: hsl(206, 94%, 87%);
   --strawberry-red: hsl(354, 84%, 57%);
-  
+
   --cool-gray: hsl(231, 11%, 63%);
   --light-gray: hsl(229, 24%, 87%);
   --magnolia: hsl(217, 100%, 97%);
@@ -45,13 +45,12 @@
   --font: "ubuntu";
   --font-l: "Ubuntu Medium";
   --font-xl: "Ubuntu Large";
-  --font-size-small: clamp(.8rem,8vmin,.95rem);
+  --font-size-small: clamp(0.8rem, 8vmin, 0.95rem);
   --font-size-medium: clamp(1.2rem, 10vmin, 1.4rem);
   --font-size-large: clamp(1.8rem, 13vmin, 2rem);
   --font-size-xlarge: clamp(2.5rem, 20vmin, 3rem);
 
-
-  --trans-default: all .2s ease;
+  --trans-default: all 0.2s ease;
 }
 
 html {
@@ -62,9 +61,10 @@ html {
 
   background-color: var(--light-gray);
 
-  body , #app{
-  width: inherit;
-  min-height: inherit;
+  body,
+  #app {
+    width: inherit;
+    min-height: inherit;
   }
 }
 
@@ -75,14 +75,14 @@ html {
 }
 
 .title {
- color: var(--marine-blue);
- font-size: var(--font-size-large);
- font-family: var(--font-xl);
- &__sub {
-  color: var(--cool-gray);
-  font-size: var(--font-size-small);
-  line-height: 1.4;
- }
+  color: var(--marine-blue);
+  font-size: var(--font-size-large);
+  font-family: var(--font-xl);
+  &__sub {
+    color: var(--cool-gray);
+    font-size: var(--font-size-small);
+    line-height: 1.4;
+  }
 }
 
 h2 {
@@ -92,20 +92,19 @@ h2 {
   letter-spacing: 1px;
 }
 
-
 .btn {
   border-radius: calc(var(--rad) / 2);
   font-family: var(--font-xl);
   width: 5.7rem;
   height: 2.4rem;
-  box-shadow: 2px 1px 4px 0 rgba(0,0,0,.1);
+  box-shadow: 2px 1px 4px 0 rgba(0, 0, 0, 0.1);
   transition: var(--trans-default);
   display: inline-block;
 
   &.next {
-  border: 1px solid var(--marine-blue);
-  background-color: var(--marine-blue);
-  color: var(--magnolia);
+    border: 1px solid var(--marine-blue);
+    background-color: var(--marine-blue);
+    color: var(--magnolia);
   }
   &.prev {
     color: var(--cool-gray);
@@ -115,13 +114,13 @@ h2 {
   }
 
   &.next.click {
-    opacity: .9;
+    opacity: 0.9;
     transition: var(--trans-default);
     transform: translate3d(10%, 0, 0);
   }
 
   &.prev.click {
-    opacity: .9;
+    opacity: 0.9;
     transition: var(--trans-default);
     transform: translate3d(-10%, 0, 0);
   }
@@ -132,7 +131,19 @@ h2 {
   height: 1.25rem;
   border-radius: calc(var(--rad) * 3);
   background-color: var(--marine-blue);
-  border:1px solid var(--marine-blue);
+  border: 1px solid var(--marine-blue);
+  position: relative;
+
+  &:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+    height: 100%;
+    aspect-ratio: 1;
+    background-color: var(--wt);
+    border-radius: var(--round);
+  }
 }
 
 input {
@@ -165,8 +176,6 @@ input {
 .hide {
   display: none !important;
 }
-
-
 
 @keyframes rad {
   to {
