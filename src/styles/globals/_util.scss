@@ -46,7 +46,7 @@
   --font-l: "Ubuntu Medium";
   --font-xl: "Ubuntu Large";
   --font-size-small: clamp(0.8rem, 6vmin, 0.95rem);
-  --font-size-medium: clamp(1.2rem, 10vmin, 1.4rem);
+  --font-size-medium: clamp(1.2rem, 8vmin, 1.3rem);
   --font-size-large: clamp(1.8rem, 13vmin, 2rem);
   --font-size-xlarge: clamp(2.5rem, 20vmin, 3rem);
 
@@ -92,6 +92,10 @@ h2 {
   letter-spacing: 1px;
 }
 
+button {
+  outline: 1px solid var(--ts) !important;
+}
+
 .btn {
   border-radius: calc(var(--rad) / 2);
   font-family: var(--font-xl);
@@ -113,6 +117,12 @@ h2 {
     box-shadow: unset;
   }
 
+  &.end {
+    color: var(--wt);
+    border-color: var(--ts);
+    background-color: var(--puplish-blue);
+  }
+
   &.time {
     color: var(--cool-gray);
     border-color: var(--ts);
@@ -124,16 +134,10 @@ h2 {
     }
   }
 
-  &.next.click {
+  &.navBtn.click {
     opacity: 0.9;
     transition: var(--trans-default);
     transform: translate3d(10%, 0, 0);
-  }
-
-  &.prev.click {
-    opacity: 0.9;
-    transition: var(--trans-default);
-    transform: translate3d(-10%, 0, 0);
   }
 }
 
@@ -175,27 +179,26 @@ input {
     border-color: var(--marine-blue);
     transition: var(--trans-default);
   }
+
+  &[type="checkbox"] {
+    caret-color: var(--puplish-blue);
+  }
 }
 
-.load {
-  display: block;
-  height: 3.125rem;
-  aspect-ratio: 1;
-  position: relative;
-  border: 5px double var(--ts);
-  border-bottom-color: var(--puplish-blue);
-  border-left-color: var(--puplish-blue);
-  border-radius: var(--round);
-
-  animation: rad 1s ease infinite;
+.at-end {
+  display: flex;
+  justify-content: space-between;
+  align-items: var(--cn);
 }
+
+.sum {
+  --font-size-medium: 1.1rem;
+  color: var(--puplish-blue);
+  font-family: var(--font);
+  font-size: var(--font-size-medium);
+}
+
 
 .hide {
   display: none !important;
-}
-
-@keyframes rad {
-  to {
-    transform: rotate(360deg);
-  }
 }

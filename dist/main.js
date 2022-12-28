@@ -3,8 +3,9 @@ const d = document;
 const w = window;
 const log = console;
 const [html, body] = [dq("html"), dq("body")];
+const load = dq(".load");
 let selectType = false;
-let _random;
+let _random = 1400;
 const appendSteps = (function () {
     const mainSteps = dq(".step__box");
     const data = [
@@ -12,28 +13,32 @@ const appendSteps = (function () {
             id: 1,
             step: "STEP 1",
             tilte: "YOUR INFO",
+            filter: "info",
         },
         {
             id: 2,
             step: "STEP 2",
             tilte: "SELECT PLAN",
+            filter: "plan",
         },
         {
             id: 3,
             step: "STEP 3",
             tilte: "ADD-ONS",
+            filter: "pick",
         },
         {
             id: 4,
             step: "STEP 4",
             tilte: "SUMMARY",
+            filter: "summary",
         },
     ];
     // s = the steps
     let s = data
         .map((data, i) => {
         return `<div class="main__steps__box">
-     <i class=>${data.id}</i>
+     <i data-step=${data.filter}>${data.id}</i>
      <div> <span> ${data.step}</span> <h2> ${data.tilte}</h2></div>
      </div>`;
     })
@@ -79,8 +84,8 @@ function userChoices(bool) {
 }
 // called so as to display the informations
 userChoices(selectType);
-function userSelectedChoice() {
-    const planBox = dqA(".plan__box");
+function userSelectedChoice(element) {
+    const planBox = dqA(element);
     planBox.forEach((element, i) => {
         const prevBro = element.previousElementSibling;
         const nextBro = element.nextElementSibling;
@@ -106,7 +111,47 @@ function userSelectedChoice() {
         };
     });
 }
-userSelectedChoice();
+userSelectedChoice(".plan__box");
+function userGamingExperience(bol) {
+    const pick = dq(".card__pick");
+    const data = [
+        {
+            title: "Online service",
+            about: "Access to multiplayer games",
+            price: selectType ? "+$10/yr" : "+$1/mo",
+        },
+        {
+            title: "Larger storage",
+            about: "Extra 1TB of cloud save",
+            price: selectType ? "+$20/yr" : "+$2/mo",
+        },
+        {
+            title: "Customizable profile",
+            about: "Custom theme on your profile",
+            price: selectType ? "+$20/yr" : "+$2/mo",
+        },
+    ];
+    const s = data
+        .map((data) => {
+        return `<div class=card__pick__box> 
+      <div class=p>
+
+      <input type=checkbox name=check>
+<div class=pp>
+<h2> ${data.title}</h2>
+<p class=title__sub> ${data.about}</p>
+</div>
+      </div>
+
+      <span>${data.price}</span>
+      </div>`;
+    })
+        .join("");
+    pick.innerHTML = s;
+}
+userGamingExperience(selectType);
+function calculatedSum() {
+}
 const userInteractions = (function () {
     // all navigation buttons
     on(".navBtn", {
@@ -124,10 +169,9 @@ const userInteractions = (function () {
             const prevBro = dom.previousElementSibling;
             dom.classList.toggle("click");
             selectType = !selectType;
-            /* since the dom get's updated, you will need to re-call userSelectedChoice
-      so as to keep things updated too
-      */
-            userSelectedChoice();
+            userChoices(selectType);
+            userGamingExperience(selectType);
+            userSelectedChoice(".plan__box");
             if (dom.classList.contains("click")) {
                 nextBro.classList.toggle("choice");
                 prevBro.classList.toggle("choice");
@@ -137,6 +181,44 @@ const userInteractions = (function () {
                 nextBro.classList.toggle("choice");
             }
         },
+    });
+    // checkbox selected
+    on(".card__pick__box input", {
+        change(e) {
+            const parent = e.composedPath()[2];
+            parent.classList.toggle("click");
+        },
+    });
+    // selected numbered steps used for redirection
+    on(".step__box i", {
+        click(e) {
+            const child = e.composedPath()[0];
+            const c = dqA(".step__box i"); // select all instances of i
+            const cardElement = dqA(".card");
+            cardElement.forEach((element, i) => {
+                var _a, _b, _c, _d;
+                if (((_a = element === null || element === void 0 ? void 0 : element.dataset) === null || _a === void 0 ? void 0 : _a.step) === ((_b = child === null || child === void 0 ? void 0 : child.dataset) === null || _b === void 0 ? void 0 : _b.step)) {
+                    // .8s before the new step pops up
+                    c[i].classList.add("click");
+                    setTimeout(() => {
+                        var _a, _b;
+                        (_a = element.classList) === null || _a === void 0 ? void 0 : _a.remove("hide");
+                        (_b = load.classList) === null || _b === void 0 ? void 0 : _b.add("hide");
+                    }, _random);
+                }
+                else {
+                    c[i].classList.remove("click");
+                    (_c = load.classList) === null || _c === void 0 ? void 0 : _c.remove("hide");
+                    (_d = element.classList) === null || _d === void 0 ? void 0 : _d.add("hide");
+                }
+            });
+        },
+    });
+    // prev, next,end buttons 
+    on(".next", {
+        click(e) {
+            alert("clicked");
+        }
     });
 })();
 /**

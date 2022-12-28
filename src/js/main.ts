@@ -3,9 +3,10 @@ const w: Window = window;
 const log: Console = console;
 
 const [html, body] = [dq("html"), dq("body")];
+const load: HTMLDivElement | any = dq(".load");
 
 let selectType: boolean = false;
-let _random: number;
+let _random: number = 1400;
 
 const appendSteps: void = (function () {
   const mainSteps: any = dq(".step__box");
@@ -14,28 +15,32 @@ const appendSteps: void = (function () {
       id: 1,
       step: "STEP 1",
       tilte: "YOUR INFO",
+      filter: "info",
     },
     {
       id: 2,
       step: "STEP 2",
       tilte: "SELECT PLAN",
+      filter: "plan",
     },
     {
       id: 3,
       step: "STEP 3",
       tilte: "ADD-ONS",
+      filter: "pick",
     },
     {
       id: 4,
       step: "STEP 4",
       tilte: "SUMMARY",
+      filter: "summary",
     },
   ];
   // s = the steps
   let s = data
     .map((data, i) => {
       return `<div class="main__steps__box">
-     <i class=>${data.id}</i>
+     <i data-step=${data.filter}>${data.id}</i>
      <div> <span> ${data.step}</span> <h2> ${data.tilte}</h2></div>
      </div>`;
     })
@@ -86,8 +91,8 @@ function userChoices(bool: boolean): void {
 // called so as to display the informations
 userChoices(selectType);
 
-function userSelectedChoice(): void {
-  const planBox: any = dqA(".plan__box");
+function userSelectedChoice(element: string): void {
+  const planBox: any = dqA(element);
 
   planBox.forEach((element: any, i: number) => {
     const prevBro: any = element.previousElementSibling;
@@ -114,7 +119,54 @@ function userSelectedChoice(): void {
     };
   });
 }
-userSelectedChoice();
+userSelectedChoice(".plan__box");
+
+function userGamingExperience(bol: boolean): void {
+  const pick: any = dq(".card__pick");
+
+  const data = [
+    {
+      title: "Online service",
+      about: "Access to multiplayer games",
+      price: selectType ? "+$10/yr" : "+$1/mo",
+    },
+    {
+      title: "Larger storage",
+      about: "Extra 1TB of cloud save",
+      price: selectType ? "+$20/yr" : "+$2/mo",
+    },
+    {
+      title: "Customizable profile",
+      about: "Custom theme on your profile",
+      price: selectType ? "+$20/yr" : "+$2/mo",
+    },
+  ];
+
+  const s: string[] | string = data
+    .map((data) => {
+      return `<div class=card__pick__box> 
+      <div class=p>
+
+      <input type=checkbox name=check>
+<div class=pp>
+<h2> ${data.title}</h2>
+<p class=title__sub> ${data.about}</p>
+</div>
+      </div>
+
+      <span>${data.price}</span>
+      </div>`;
+    })
+    .join("");
+
+  pick.innerHTML = s;
+}
+
+userGamingExperience(selectType);
+
+function calculatedSum():void | any {
+  
+}
 
 const userInteractions: void = (function () {
   // all navigation buttons
@@ -136,10 +188,9 @@ const userInteractions: void = (function () {
       dom.classList.toggle("click");
 
       selectType = !selectType;
-      /* since the dom get's updated, you will need to re-call userSelectedChoice
-so as to keep things updated too
-*/
-      userSelectedChoice();
+      userChoices(selectType);
+      userGamingExperience(selectType);
+      userSelectedChoice(".plan__box");
 
       if (dom.classList.contains("click")) {
         nextBro.classList.toggle("choice");
@@ -150,6 +201,47 @@ so as to keep things updated too
       }
     },
   });
+
+  // checkbox selected
+  on(".card__pick__box input", {
+    change(e: any) {
+      const parent: any | HTMLDivElement = e.composedPath()[2];
+      parent.classList.toggle("click");
+    },
+  });
+
+  // selected numbered steps used for redirection
+  on(".step__box i", {
+    click(e: any) {
+      const child: HTMLElement | any = e.composedPath()[0];
+      const c: any = dqA(".step__box i") // select all instances of i
+      const cardElement: HTMLDivElement | any = dqA(".card");
+     
+
+      cardElement.forEach((element: any, i:number) => {
+        if (element?.dataset?.step === child?.dataset?.step) {
+          // .8s before the new step pops up
+          c[i].classList.add("click")
+
+          setTimeout(() => {
+            element.classList?.remove("hide");
+            load.classList?.add("hide");
+          }, _random);
+        } else {
+          c[i].classList.remove("click")
+          load.classList?.remove("hide");
+          element.classList?.add("hide");
+        }
+      });
+    },
+  });
+
+  // prev, next,end buttons 
+  on(".next", {
+    click(e: any) {
+      alert("clicked")
+    }
+  })
 })();
 
 /**
@@ -158,14 +250,14 @@ so as to keep things updated too
  * @param element = string
  * @param event = object
  */
-function on(element: string, event: any): void {
+function on(element: string, event: object | any): void {
   for (let key in event) {
     const e: any = document.querySelectorAll(element);
     e.forEach((el: any) => el.addEventListener(key, event[key]));
   }
 }
 
-function dq(x: string) {
+function dq(x: string): Element | null {
   return d.querySelector(x);
 }
 function dqA(x: string) {

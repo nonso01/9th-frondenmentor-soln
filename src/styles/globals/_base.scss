@@ -43,6 +43,7 @@
         align-items: var(--cn);
         align-self: var(--cn);
         color: var(--wt);
+        transition: var(--trans-default);
 
         // event listener
         &.click {
@@ -62,7 +63,7 @@
   &__cards {
     grid-column: 4/8;
     grid-row: 1/6;
-    //background-color: var(--light-gray);
+    position: relative;
   }
 }
 
@@ -134,7 +135,6 @@
         &.click {
           border-color: var(--puplish-blue);
           background-color: hsla(228, 100%, 84%, 0.5);
-          border-color: var(--puplish-blue);
         }
 
         &:hover {
@@ -145,9 +145,10 @@
       }
 
       .free {
+        --font-size-small: 0.85rem;
         display: inline-block;
         color: var(--marine-blue);
-        font-family: var(--font);
+        font-family: var(--font-xl);
         font-size: var(--font-size-small);
         line-height: 1.7;
       }
@@ -184,6 +185,48 @@
     }
   }
 
+  &__pick {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-evenly;
+    flex: 0.3 1 auto;
+    &__box {
+      border: 2px solid var(--cool-gray);
+      border-radius: calc(var(--rad) / 1.2);
+      transition: var(--trans-default);
+      flex: 0.2 1 auto;
+
+      display: flex;
+      justify-content: space-evenly;
+      align-items: var(--cn);
+
+      .p {
+        flex: 0.3 1 auto;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: var(--cn);
+      }
+
+      &.click {
+        border-color: var(--puplish-blue);
+        background-color: hsla(228, 100%, 84%, 0.5);
+      }
+    }
+
+    span {
+      color: var(--puplish-blue);
+      font-size: 0.75rem;
+      height: fit-content;
+    }
+    h2 {
+      color: var(--marine-blue);
+    }
+  }
+
+  &__summary {
+    
+  }
+
   &__btn {
     display: flex;
     flex-flow: row;
@@ -195,10 +238,19 @@
   }
 }
 
-@media screen and (min-width: 1399.98px) {
+@media screen and (min-width: 1300.98px) {
+  #main {
+    height: 665.69px;
+  }
+  .card__pick {
+    min-height: 263px;
+  }
 }
 
 @media screen and (max-width: 1199.98px) {
+  .card__pick {
+    min-height: 262.23px;
+  }
 }
 
 @media screen and (max-width: 991.98px) {
@@ -215,4 +267,15 @@
 }
 
 @media screen and (max-width: 575.98px) {
+}
+
+
+$fx:("around","between","evenly");
+
+@each $type in $fx {
+  .fx-#{$type}{
+  display: flex;
+  align-items: var(--cn);
+  justify-content: space-#{$type};
+}
 }
