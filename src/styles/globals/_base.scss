@@ -1,5 +1,4 @@
 .main {
-  //  border: var(--debbug);
   height: 70vh;
   width: 80%;
   align-self: var(--cn);
@@ -88,7 +87,8 @@
     justify-content: space-between;
 
     &__contact {
-      flex: 0.6 1 auto;
+      // flex: 0.6 1 auto;
+      height: 16.875rem;
       display: flex;
       flex-flow: column;
       justify-content: space-around;
@@ -96,8 +96,9 @@
       label {
         flex: 0.2 1 auto;
         display: flex;
-        flex-flow: column;
         justify-content: space-around;
+        flex-flow: column;
+
         color: var(--marine-blue);
         font-family: var(--font-xl);
       }
@@ -109,8 +110,9 @@
   }
 
   &__plan {
-    flex: 0.3 1 auto;
-    min-height: 21.68rem;
+    // flex: 0.3 1 auto;
+    // min-height: 21.68rem;
+    height: 16.875rem;
     display: flex;
     flex-flow: column;
     justify-content: space-around;
@@ -164,9 +166,7 @@
 
       div {
         width: 60%;
-        display: flex;
-        justify-content: space-between;
-        align-items: var(--cn);
+        @extend .fx-between;
       }
     }
 
@@ -189,22 +189,18 @@
     display: flex;
     flex-flow: column;
     justify-content: space-evenly;
-    flex: 0.3 1 auto;
+    // flex: 0.3 1 auto;
+    height: 16.875rem;
     &__box {
       border: 2px solid var(--cool-gray);
       border-radius: calc(var(--rad) / 1.2);
       transition: var(--trans-default);
       flex: 0.2 1 auto;
-
-      display: flex;
-      justify-content: space-evenly;
-      align-items: var(--cn);
+      @extend .fx-evenly;
 
       .p {
         flex: 0.3 1 auto;
-        display: flex;
-        justify-content: space-evenly;
-        align-items: var(--cn);
+        @extend .fx-evenly;
       }
 
       &.click {
@@ -224,7 +220,16 @@
   }
 
   &__summary {
-    
+    background-color: var(--light-blue);
+    // flex: 0.5 1 auto;
+    height: 16.875rem;
+
+    .select__plan {
+      a,
+      span {
+        display: inline-block;
+      }
+    }
   }
 
   &__btn {
@@ -240,42 +245,68 @@
 
 @media screen and (min-width: 1300.98px) {
   #main {
-    height: 665.69px;
+    height: 38.323rem;
+    width: 62.368rem;
   }
-  .card__pick {
-    min-height: 263px;
+}
+
+@media screen and (min-width: 1200.98px) {
+  #main {
+    height: 38.323rem;
   }
 }
 
 @media screen and (max-width: 1199.98px) {
-  .card__pick {
-    min-height: 262.23px;
+  #main {
+    height: 43.75rem;
   }
 }
 
 @media screen and (max-width: 991.98px) {
+
+  :root {
+    --font-size-small: clamp(0.8rem, 6vmin, 0.95rem);
+  --font-size-medium: clamp(1.1rem, 7vmin, 1.2rem);
+  --font-size-large: clamp(1.6rem, 10vmin, 1.8rem);
+  --font-size-xlarge: clamp(2.1rem, 16vmin, 2.8rem);
+  }
   #main {
-    height: 29.375rem;
-    background-color: var(--debbug-bg);
+    height: 32.5rem;
+    width: 85%;
   }
 }
 
 @media screen and (max-width: 767.98px) {
+  :root {
+    --font-size-small: clamp(0.8rem, 5vmin, 0.9rem);
+  --font-size-medium: clamp(1.1rem, 7vmin, 1.2rem);
+  --font-size-large: clamp(1.4rem, 10vmin, 1.8rem);
+  --font-size-xlarge: clamp(2.1rem, 15vmin, 2.5rem);
+  }
   #main {
-    background-color: var(--puplish-blue);
+    // background-color: var(--puplish-blue);
   }
 }
 
 @media screen and (max-width: 575.98px) {
+  :root {
+    --font-size-small: clamp(0.8rem, 5vmin, 0.9rem);
+  --font-size-medium: clamp(1.1rem, 7vmin, 1.2rem);
+  --font-size-large: clamp(1.4rem, 10vmin, 1.8rem);
+  --font-size-xlarge: clamp(2.1rem, 15vmin, 2.5rem);
+  }
+
+  #main {
+    // background-color: var(--cool-gray);
+  }
 }
 
-
-$fx:("around","between","evenly");
+$fx: ("around", "between", "evenly");
 
 @each $type in $fx {
-  .fx-#{$type}{
-  display: flex;
-  align-items: var(--cn);
-  justify-content: space-#{$type};
-}
+  .fx-#{$type} {
+    display: flex;
+    align-items: var(--cn);
+    justify-content: space-#{$type};
+  }
 }

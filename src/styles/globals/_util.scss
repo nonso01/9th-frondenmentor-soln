@@ -89,7 +89,7 @@ h2 {
   color: var(--wt);
   font-size: var(--font-size-small);
   font-family: var(--font-xl);
-  letter-spacing: 1px;
+  letter-spacing: .5px;
 }
 
 button {
@@ -167,6 +167,10 @@ button {
   }
 }
 
+label:has(input.error) {
+  color: var(--strawberry-red);
+}
+
 input {
   border: 3px solid var(--cool-gray);
   outline: none;
@@ -183,6 +187,10 @@ input {
   &[type="checkbox"] {
     caret-color: var(--puplish-blue);
   }
+
+  &.error {
+    border-color: var(--strawberry-red);
+  }
 }
 
 .at-end {
@@ -197,7 +205,6 @@ input {
   font-family: var(--font);
   font-size: var(--font-size-medium);
 }
-
 
 .hide {
   display: none !important;

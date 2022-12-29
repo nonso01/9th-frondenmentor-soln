@@ -6,7 +6,9 @@ const [html, body] = [dq("html"), dq("body")];
 const load: HTMLDivElement | any = dq(".load");
 
 let selectType: boolean = false;
-let _random: number = 1400;
+let WAITASEC: number = 1400;
+
+type btn = HTMLButtonElement | any;
 
 const appendSteps: void = (function () {
   const mainSteps: any = dq(".step__box");
@@ -122,7 +124,7 @@ function userSelectedChoice(element: string): void {
 userSelectedChoice(".plan__box");
 
 function userGamingExperience(bol: boolean): void {
-  const pick: any = dq(".card__pick");
+  const pick: Element | any = dq(".card__pick");
 
   const data = [
     {
@@ -164,11 +166,19 @@ function userGamingExperience(bol: boolean): void {
 
 userGamingExperience(selectType);
 
-function calculatedSum():void | any {
-  
-}
+function calculatedSum(): void | any {}
 
 const userInteractions: void = (function () {
+  // text input fields
+  on(".info input", {
+    blur(e: any) {
+      const child: HTMLInputElement = e.composedPath()[0];
+      if (child.value.length <= 0) {
+        child.classList.add("error");
+      } else child.classList.remove("error");
+    },
+  });
+
   // all navigation buttons
   on(".navBtn", {
     pointerover(e: any) {
@@ -177,14 +187,19 @@ const userInteractions: void = (function () {
       e.target.classList.add("click");
       setTimeout(() => e.target.classList.remove("click"), 400);
     },
+    click(e: any) {
+      const step: any = dqA(".step__box i").forEach((element: Element) => {
+        element.classList?.remove("click")
+      }  )
+    }
   });
 
   // the year/month toggle btn
   on(".toggle", {
     click(e: any) {
-      const dom: any = e.target;
-      const nextBro: any = dom.nextElementSibling;
-      const prevBro: any = dom.previousElementSibling;
+      const dom: HTMLElement = e.target;
+      const nextBro: Element | any = dom.nextElementSibling;
+      const prevBro: Element | any = dom.previousElementSibling;
       dom.classList.toggle("click");
 
       selectType = !selectType;
@@ -205,7 +220,7 @@ const userInteractions: void = (function () {
   // checkbox selected
   on(".card__pick__box input", {
     change(e: any) {
-      const parent: any | HTMLDivElement = e.composedPath()[2];
+      const parent: HTMLDivElement = e.composedPath()[2];
       parent.classList.toggle("click");
     },
   });
@@ -213,22 +228,21 @@ const userInteractions: void = (function () {
   // selected numbered steps used for redirection
   on(".step__box i", {
     click(e: any) {
-      const child: HTMLElement | any = e.composedPath()[0];
-      const c: any = dqA(".step__box i") // select all instances of i
-      const cardElement: HTMLDivElement | any = dqA(".card");
-     
+      const child: HTMLElement | null = e.composedPath()[0];
+      const c: any = dqA(".step__box i"); // select all instances of i
+      const cardElement: HTMLDivElement | NodeList = dqA(".card");
 
-      cardElement.forEach((element: any, i:number) => {
+      cardElement.forEach((element: any, i: number) => {
         if (element?.dataset?.step === child?.dataset?.step) {
           // .8s before the new step pops up
-          c[i].classList.add("click")
+          c[i].classList.add("click");
 
           setTimeout(() => {
             element.classList?.remove("hide");
             load.classList?.add("hide");
-          }, _random);
+          }, WAITASEC);
         } else {
-          c[i].classList.remove("click")
+          c[i].classList.remove("click");
           load.classList?.remove("hide");
           element.classList?.add("hide");
         }
@@ -236,12 +250,41 @@ const userInteractions: void = (function () {
     },
   });
 
-  // prev, next,end buttons 
+  // prev, next,end buttons
   on(".next", {
+    click(e: object | any) {
+      const parent: HTMLDivElement = e.composedPath()[2];
+      const nextParent: any = parent.nextElementSibling;
+
+      parent.classList.add("hide");
+      load.classList.remove("hide");
+      setTimeout(() => {
+        load.classList.add("hide");
+        nextParent.classList.remove("hide");
+      }, WAITASEC);
+    },
+  });
+
+  on(".prev", {
     click(e: any) {
-      alert("clicked")
-    }
-  })
+      const parent: HTMLDivElement = e.composedPath()[2];
+      const prevParent: any = parent.previousElementSibling;
+
+      parent.classList.add("hide");
+      load.classList.remove("hide");
+      setTimeout(() => {
+        load.classList.add("hide");
+        prevParent.classList.remove("hide");
+      }, WAITASEC);
+    },
+  });
+
+  on(".end", {
+    click(e: any) {
+      const sure: string | any = prompt("Have you made your choice ?", "");
+      log.log(sure);
+    },
+  });
 })();
 
 /**

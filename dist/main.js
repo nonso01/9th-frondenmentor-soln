@@ -5,7 +5,7 @@ const log = console;
 const [html, body] = [dq("html"), dq("body")];
 const load = dq(".load");
 let selectType = false;
-let _random = 1400;
+let WAITASEC = 1400;
 const appendSteps = (function () {
     const mainSteps = dq(".step__box");
     const data = [
@@ -150,9 +150,19 @@ function userGamingExperience(bol) {
     pick.innerHTML = s;
 }
 userGamingExperience(selectType);
-function calculatedSum() {
-}
+function calculatedSum() { }
 const userInteractions = (function () {
+    // text input fields
+    on(".info input", {
+        blur(e) {
+            const child = e.composedPath()[0];
+            if (child.value.length <= 0) {
+                child.classList.add("error");
+            }
+            else
+                child.classList.remove("error");
+        },
+    });
     // all navigation buttons
     on(".navBtn", {
         pointerover(e) {
@@ -160,6 +170,12 @@ const userInteractions = (function () {
             e.target.classList.add("click");
             setTimeout(() => e.target.classList.remove("click"), 400);
         },
+        click(e) {
+            const step = dqA(".step__box i").forEach((element) => {
+                var _a;
+                (_a = element.classList) === null || _a === void 0 ? void 0 : _a.remove("click");
+            });
+        }
     });
     // the year/month toggle btn
     on(".toggle", {
@@ -204,7 +220,7 @@ const userInteractions = (function () {
                         var _a, _b;
                         (_a = element.classList) === null || _a === void 0 ? void 0 : _a.remove("hide");
                         (_b = load.classList) === null || _b === void 0 ? void 0 : _b.add("hide");
-                    }, _random);
+                    }, WAITASEC);
                 }
                 else {
                     c[i].classList.remove("click");
@@ -214,11 +230,36 @@ const userInteractions = (function () {
             });
         },
     });
-    // prev, next,end buttons 
+    // prev, next,end buttons
     on(".next", {
         click(e) {
-            alert("clicked");
-        }
+            const parent = e.composedPath()[2];
+            const nextParent = parent.nextElementSibling;
+            parent.classList.add("hide");
+            load.classList.remove("hide");
+            setTimeout(() => {
+                load.classList.add("hide");
+                nextParent.classList.remove("hide");
+            }, WAITASEC);
+        },
+    });
+    on(".prev", {
+        click(e) {
+            const parent = e.composedPath()[2];
+            const prevParent = parent.previousElementSibling;
+            parent.classList.add("hide");
+            load.classList.remove("hide");
+            setTimeout(() => {
+                load.classList.add("hide");
+                prevParent.classList.remove("hide");
+            }, WAITASEC);
+        },
+    });
+    on(".end", {
+        click(e) {
+            const sure = prompt("Have you made your choice ?", "");
+            log.log(sure);
+        },
     });
 })();
 /**
