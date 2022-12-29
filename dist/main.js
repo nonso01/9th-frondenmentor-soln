@@ -112,7 +112,7 @@ function userSelectedChoice(element) {
     });
 }
 userSelectedChoice(".plan__box");
-function userGamingExperience(bol) {
+function userGamingExperience(bool) {
     const pick = dq(".card__pick");
     const data = [
         {
@@ -150,9 +150,22 @@ function userGamingExperience(bol) {
     pick.innerHTML = s;
 }
 userGamingExperience(selectType);
+function userExperienceInput(element) {
+    element.forEach((el) => {
+        if (selectType) {
+            el.onchange = () => {
+                el.parentElement.parentElement.classList.toggle("click");
+            };
+        }
+        else {
+            el.onchange = () => {
+                el.parentElement.parentElement.classList.toggle("click");
+            };
+        }
+    });
+}
 function calculatedSum() { }
 const userInteractions = (function () {
-    // text input fields
     on(".info input", {
         blur(e) {
             const child = e.composedPath()[0];
@@ -163,7 +176,6 @@ const userInteractions = (function () {
                 child.classList.remove("error");
         },
     });
-    // all navigation buttons
     on(".navBtn", {
         pointerover(e) {
             e.preventDefault();
@@ -175,10 +187,10 @@ const userInteractions = (function () {
                 var _a;
                 (_a = element.classList) === null || _a === void 0 ? void 0 : _a.remove("click");
             });
-        }
+        },
     });
-    // the year/month toggle btn
     on(".toggle", {
+        // DOM always get updated any time selectType changes
         click(e) {
             const dom = e.target;
             const nextBro = dom.nextElementSibling;
@@ -186,8 +198,9 @@ const userInteractions = (function () {
             dom.classList.toggle("click");
             selectType = !selectType;
             userChoices(selectType);
-            userGamingExperience(selectType);
             userSelectedChoice(".plan__box");
+            userGamingExperience(selectType);
+            userExperienceInput(d.querySelectorAll(".card__pick__box input"));
             if (dom.classList.contains("click")) {
                 nextBro.classList.toggle("choice");
                 prevBro.classList.toggle("choice");
@@ -230,7 +243,6 @@ const userInteractions = (function () {
             });
         },
     });
-    // prev, next,end buttons
     on(".next", {
         click(e) {
             const parent = e.composedPath()[2];
