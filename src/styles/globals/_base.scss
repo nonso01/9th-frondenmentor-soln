@@ -110,8 +110,6 @@
   }
 
   &__plan {
-    // flex: 0.3 1 auto;
-    // min-height: 21.68rem;
     height: 16.875rem;
     display: flex;
     flex-flow: column;
@@ -235,8 +233,10 @@
       a {
         width: min-content;
         align-self: flex-start;
+        &:hover {
+          color: var(--puplish-blue);
+        }
       }
-      
     }
     .select__result {
       flex: 0.3 1 auto;
@@ -246,7 +246,7 @@
     }
 
     &__confirm {
-      background-color: hsla(229, 24%, 87%, .7);
+      background-color: hsla(229, 24%, 87%, 0.9);
       border-radius: calc(var(--rad) / 2);
       padding: 2% 4%;
       flex: 0.8 1 auto;
@@ -305,11 +305,11 @@
   :root {
     --font-size-small: clamp(0.8rem, 5vmin, 0.9rem);
     --font-size-medium: clamp(1.1rem, 7vmin, 1.2rem);
-    --font-size-large: clamp(1.4rem, 10vmin, 1.8rem);
+    --font-size-large: clamp(1.3rem, 10vmin, 1.6rem);
     --font-size-xlarge: clamp(2.1rem, 15vmin, 2.5rem);
   }
   #main {
-    display: block
+    display: block;
   }
 }
 

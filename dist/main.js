@@ -119,16 +119,19 @@ function userGamingExperience(bool) {
             title: "Online service",
             about: "Access to multiplayer games",
             price: selectType ? "+$10/yr" : "+$1/mo",
+            plan: "service",
         },
         {
             title: "Larger storage",
             about: "Extra 1TB of cloud save",
             price: selectType ? "+$20/yr" : "+$2/mo",
+            plan: "storage",
         },
         {
             title: "Customizable profile",
             about: "Custom theme on your profile",
             price: selectType ? "+$20/yr" : "+$2/mo",
+            plan: "profile",
         },
     ];
     const s = data
@@ -143,7 +146,7 @@ function userGamingExperience(bool) {
 </div>
       </div>
 
-      <span>${data.price}</span>
+      <span data-plan=${data.plan}>${data.price}</span>
       </div>`;
     })
         .join("");
@@ -164,7 +167,14 @@ function userExperienceInput(element) {
         }
     });
 }
-function calculatedSum() { }
+/**
+ * calculatedSum - calculate all results selected by the user
+ * Return: void
+ */
+function calculatedSum() {
+    const planBox = dqA(".pllan__box");
+    const checkboxText = dqA(".p + span");
+}
 const userInteractions = (function () {
     on(".info input", {
         blur(e) {

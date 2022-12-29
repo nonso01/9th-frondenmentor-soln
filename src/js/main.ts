@@ -131,16 +131,19 @@ function userGamingExperience(bool: boolean): void {
       title: "Online service",
       about: "Access to multiplayer games",
       price: selectType ? "+$10/yr" : "+$1/mo",
+      plan: "service",
     },
     {
       title: "Larger storage",
       about: "Extra 1TB of cloud save",
       price: selectType ? "+$20/yr" : "+$2/mo",
+      plan: "storage",
     },
     {
       title: "Customizable profile",
       about: "Custom theme on your profile",
       price: selectType ? "+$20/yr" : "+$2/mo",
+      plan: "profile",
     },
   ];
 
@@ -156,7 +159,7 @@ function userGamingExperience(bool: boolean): void {
 </div>
       </div>
 
-      <span>${data.price}</span>
+      <span data-plan=${data.plan}>${data.price}</span>
       </div>`;
     })
     .join("");
@@ -180,7 +183,16 @@ function userExperienceInput(element: NodeListOf<Element>): void {
   });
 }
 
-function calculatedSum(): void | any {}
+/**
+ * calculatedSum - calculate all results selected by the user
+ * Return: void
+ */
+function calculatedSum(): void | any {
+  const planBox: NodeListOf<Element> = dqA(".pllan__box")
+  const checkboxText: NodeListOf<Element> = dqA(".p + span")
+
+
+}
 
 const userInteractions: void = (function () {
   on(".info input", {
