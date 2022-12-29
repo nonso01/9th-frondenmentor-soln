@@ -168,12 +168,15 @@ function userExperienceInput(element) {
     });
 }
 /**
- * calculatedSum - calculate all results selected by the user
- * Return: void
+ * calculateSum - calculate all results selected by the user
  */
-function calculatedSum() {
-    const planBox = dqA(".pllan__box");
-    const checkboxText = dqA(".p + span");
+function calculateSum() {
+    const el = {
+        planBox: dqA(".plan__box"),
+        checkboxText: dqA(".p + span"),
+        planResult: dqA("span.t"),
+        sum: dq(".sum"),
+    };
 }
 const userInteractions = (function () {
     on(".info input", {

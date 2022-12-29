@@ -8,7 +8,7 @@ const load: HTMLDivElement | any = dq(".load");
 let selectType: boolean = false;
 let WAITASEC: number = 1400;
 
-type btn = HTMLButtonElement | any;
+type list = NodeListOf<Element>;
 
 const appendSteps: void = (function () {
   const mainSteps: any = dq(".step__box");
@@ -169,7 +169,7 @@ function userGamingExperience(bool: boolean): void {
 
 userGamingExperience(selectType);
 
-function userExperienceInput(element: NodeListOf<Element>): void {
+function userExperienceInput(element: list): void {
   element.forEach((el: HTMLInputElement | any) => {
     if (selectType) {
       el.onchange = () => {
@@ -184,14 +184,15 @@ function userExperienceInput(element: NodeListOf<Element>): void {
 }
 
 /**
- * calculatedSum - calculate all results selected by the user
- * Return: void
+ * calculateSum - calculate all results selected by the user
  */
-function calculatedSum(): void | any {
-  const planBox: NodeListOf<Element> = dqA(".pllan__box")
-  const checkboxText: NodeListOf<Element> = dqA(".p + span")
-
-
+function calculateSum(): void | any {
+  const el = {
+    planBox: dqA(".plan__box"),
+    checkboxText: dqA(".p + span"),
+    planResult: dqA("span.t"),
+    sum: dq(".sum"),
+  };
 }
 
 const userInteractions: void = (function () {
@@ -254,7 +255,7 @@ const userInteractions: void = (function () {
     click(e: any) {
       const child: HTMLElement | null = e.composedPath()[0];
       const c: any = dqA(".step__box i"); // select all instances of i
-      const cardElement: NodeListOf<Element> = dqA(".card");
+      const cardElement: list = dqA(".card");
 
       cardElement.forEach((element: any, i: number) => {
         if (element?.dataset?.step === child?.dataset?.step) {
