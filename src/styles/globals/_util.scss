@@ -89,7 +89,7 @@ h2 {
   color: var(--wt);
   font-size: var(--font-size-small);
   font-family: var(--font-xl);
-  letter-spacing: .5px;
+  letter-spacing: 0.5px;
 }
 
 button {
@@ -199,6 +199,28 @@ input {
   align-items: var(--cn);
 }
 
+.for {
+  &__year {
+    color: var(--marine-blue);
+    font-family: var(--font-xl);
+  }
+
+  &__plan {
+    @extend .for__year;
+  }
+}
+
+// this class are for the last sections
+.t {
+  color: var(--marine-blue);
+}
+
+hr {
+  // height: 1px;
+  border: 1px solid var(--cool-gray);
+  border-radius: var(--round);
+  opacity: .5;
+}
 .sum {
   --font-size-medium: 1.1rem;
   color: var(--puplish-blue);
