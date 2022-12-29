@@ -123,7 +123,7 @@ function userSelectedChoice(element: string): void {
 }
 userSelectedChoice(".plan__box");
 
-function userGamingExperience(bol: boolean): void {
+function userGamingExperience(bool: boolean): void {
   const pick: Element | any = dq(".card__pick");
 
   const data = [
@@ -166,10 +166,23 @@ function userGamingExperience(bol: boolean): void {
 
 userGamingExperience(selectType);
 
+function userExperienceInput(element: NodeListOf<Element>): void {
+  element.forEach((el: HTMLInputElement | any) => {
+    if (selectType) {
+      el.onchange = () => {
+        el.parentElement.parentElement.classList.toggle("click");
+      };
+    } else {
+      el.onchange = () => {
+        el.parentElement.parentElement.classList.toggle("click");
+      };
+    }
+  });
+}
+
 function calculatedSum(): void | any {}
 
 const userInteractions: void = (function () {
-  // text input fields
   on(".info input", {
     blur(e: any) {
       const child: HTMLInputElement = e.composedPath()[0];
@@ -179,23 +192,21 @@ const userInteractions: void = (function () {
     },
   });
 
-  // all navigation buttons
   on(".navBtn", {
     pointerover(e: any) {
       e.preventDefault();
-
       e.target.classList.add("click");
       setTimeout(() => e.target.classList.remove("click"), 400);
     },
     click(e: any) {
       const step: any = dqA(".step__box i").forEach((element: Element) => {
-        element.classList?.remove("click")
-      }  )
-    }
+        element.classList?.remove("click");
+      });
+    },
   });
 
-  // the year/month toggle btn
   on(".toggle", {
+    // DOM always get updated any time selectType changes
     click(e: any) {
       const dom: HTMLElement = e.target;
       const nextBro: Element | any = dom.nextElementSibling;
@@ -204,8 +215,9 @@ const userInteractions: void = (function () {
 
       selectType = !selectType;
       userChoices(selectType);
-      userGamingExperience(selectType);
       userSelectedChoice(".plan__box");
+      userGamingExperience(selectType);
+      userExperienceInput(d.querySelectorAll(".card__pick__box input"));
 
       if (dom.classList.contains("click")) {
         nextBro.classList.toggle("choice");
@@ -230,7 +242,7 @@ const userInteractions: void = (function () {
     click(e: any) {
       const child: HTMLElement | null = e.composedPath()[0];
       const c: any = dqA(".step__box i"); // select all instances of i
-      const cardElement: HTMLDivElement | NodeList = dqA(".card");
+      const cardElement: NodeListOf<Element> = dqA(".card");
 
       cardElement.forEach((element: any, i: number) => {
         if (element?.dataset?.step === child?.dataset?.step) {
@@ -250,9 +262,8 @@ const userInteractions: void = (function () {
     },
   });
 
-  // prev, next,end buttons
   on(".next", {
-    click(e: object | any) {
+    click(e: any) {
       const parent: HTMLDivElement = e.composedPath()[2];
       const nextParent: any = parent.nextElementSibling;
 
