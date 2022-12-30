@@ -2,7 +2,8 @@
 const d = document;
 const w = window;
 const log = console;
-const [html, body] = [dq("html"), dq("body")];
+const html = d.documentElement;
+const body = d.body;
 const load = dq(".load");
 let selectType = false;
 let WAITASEC = 1400;
@@ -171,13 +172,22 @@ function userExperienceInput(element) {
  * calculateSum - calculate all results selected by the user
  */
 function calculateSum() {
-    const el = {
-        planBox: dqA(".plan__box"),
-        checkboxText: dqA(".p + span"),
-        planResult: dqA("span.t"),
-        sum: dq(".sum"),
+    w.onpointerover = function () {
+        const e = {
+            planboxText: dq(".plan__box.click span:not(.free)"),
+            checkboxText: dqA(".card__pick__box.click span"),
+            typeOfPlan: dq(".for__plan"),
+            typeOfPeriod: dq(".for__year"),
+            typeOfTotal: dq(".total"),
+            planResult: dqA("span.t"),
+            sum: dq(".sum"),
+        };
+        e.checkboxText.forEach((elem) => {
+            log.log(elem.innerText);
+        });
     };
 }
+calculateSum();
 const userInteractions = (function () {
     on(".info input", {
         blur(e) {
@@ -286,6 +296,13 @@ const userInteractions = (function () {
             log.log(sure);
         },
     });
+    w.onload = function () {
+        const main = dq("#main");
+        main.style.setProperty("animation", "main 1.2s var(--bounce-func) 1");
+        // w.onresize = function() {
+        //   log.log(body.offsetWidth, w.innerWidth)
+        // }
+    };
 })();
 /**
  *on - a function that adds multiple events to the selected

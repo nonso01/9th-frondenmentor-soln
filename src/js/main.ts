@@ -2,7 +2,9 @@ const d: Document = document;
 const w: Window = window;
 const log: Console = console;
 
-const [html, body] = [dq("html"), dq("body")];
+const html: HTMLElement = d.documentElement;
+const body: HTMLElement = d.body;
+
 const load: HTMLDivElement | any = dq(".load");
 
 let selectType: boolean = false;
@@ -187,13 +189,24 @@ function userExperienceInput(element: list): void {
  * calculateSum - calculate all results selected by the user
  */
 function calculateSum(): void | any {
-  const el = {
-    planBox: dqA(".plan__box"),
-    checkboxText: dqA(".p + span"),
-    planResult: dqA("span.t"),
-    sum: dq(".sum"),
+  w.onpointerover = function () {
+    const e = {
+      planboxText: dq(".plan__box.click span:not(.free)"),
+      checkboxText: dqA(".card__pick__box.click span"),
+      typeOfPlan: dq(".for__plan"),
+      typeOfPeriod: dq(".for__year"),
+      typeOfTotal: dq(".total"),
+      planResult: dqA("span.t"),
+      sum: dq(".sum"),
+    };
+
+    e.checkboxText.forEach((elem: any) => {
+      log.log(elem.innerText);
+    });
   };
 }
+
+calculateSum();
 
 const userInteractions: void = (function () {
   on(".info input", {
@@ -305,10 +318,19 @@ const userInteractions: void = (function () {
 
   on(".end", {
     click(e: any) {
-      const sure: string | any = prompt("Have you made your choice ?", "");
+      const sure: string | null = prompt("Have you made your choice ?", "");
       log.log(sure);
     },
   });
+
+  w.onload = function () {
+    const main: any = dq("#main");
+    main.style.setProperty("animation", "main 1.2s var(--bounce-func) 1");
+
+    // w.onresize = function() {
+    //   log.log(body.offsetWidth, w.innerWidth)
+    // }
+  };
 })();
 
 /**

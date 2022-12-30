@@ -51,6 +51,7 @@
   --font-size-xlarge: clamp(2.5rem, 20vmin, 3rem);
 
   --trans-default: all 0.2s ease;
+  --bounce-func: cubic-bezier(0.68, -0.55, 0.265, 1.5);
 }
 
 html {
@@ -222,7 +223,7 @@ hr {
   // height: 1px;
   border: 1px solid var(--cool-gray);
   border-radius: var(--round);
-  opacity: .5;
+  opacity: 0.5;
 }
 .sum {
   --font-size-medium: 1.1rem;
