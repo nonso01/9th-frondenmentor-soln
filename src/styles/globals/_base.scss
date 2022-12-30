@@ -48,6 +48,7 @@
         &.click {
           background-color: var(--pastel-blue);
           color: var(--marine-blue);
+          border-color: var(--ts);
         }
       }
 
@@ -67,7 +68,7 @@
 }
 
 .step__box {
-  height: 60%;
+  height: 50%;
   display: flex;
   flex-flow: column;
   justify-content: space-evenly;
@@ -196,9 +197,13 @@
       flex: 0.2 1 auto;
       @extend .fx-evenly;
 
+      &:hover {
+        border-color: var(--puplish-blue);
+      }
+
       .p {
         flex: 0.3 1 auto;
-        @extend .fx-evenly;
+        @extend .fx-between;
       }
 
       &.click {
@@ -318,6 +323,7 @@
     padding: 0;
 
     background-color: var(--light-gray);
+    box-shadow: unset;
 
     .main__steps {
       grid-column: 1/1;

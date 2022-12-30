@@ -115,6 +115,9 @@ button {
     border-color: var(--ts);
     background-color: var(--ts);
     box-shadow: unset;
+    &:hover {
+      color: var(--marine-blue);
+    }
   }
 
   &.end {
