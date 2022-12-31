@@ -172,33 +172,62 @@ function userExperienceInput(element) {
  * calculateSum - calculate all results selected by the user
  */
 function calculateSum() {
-    w.onpointerover = function () {
-        var _a, _b;
-        const e = {
-            planboxText: dq(".plan__box.click span:not(.free)"),
-            planboxTitle: dq(".plan__box.click .title"),
-            checkboxText: dqA(".card__pick__box.click span"),
-            typeOfPlan: dq(".for__plan"),
-            typeOfPeriod: dq(".for__year"),
-            typeOfTotal: dq(".total"),
-            planResult: dqA("span.t"),
-            sum: dq(".sum"),
-        };
-        if ((_a = e.planboxText) === null || _a === void 0 ? void 0 : _a.innerHTML.includes("m")) {
-            e.typeOfPlan.textContent = e.planboxTitle.textContent + " (monthly)";
-            e.typeOfPeriod.textContent = e.planboxText.textContent;
-        }
-        else if ((_b = e.planboxText) === null || _b === void 0 ? void 0 : _b.innerHTML.includes("y")) {
-            e.typeOfPlan.textContent = e.planboxTitle.textContent + " (yearly)";
-            e.typeOfPeriod.textContent = e.planboxText.textContent;
-        }
-        else {
-            e.typeOfPlan.textContent = "N/A";
-            e.typeOfPeriod.textContent = "$0";
-        }
-        // let a = e.typeOfPeriod.textContent.match(/\d+/)[0]
-        // log.log(a)
+    var _a, _b;
+    // w.onpointerover = function () {
+    let frame = requestAnimationFrame(calculateSum);
+    let values = [];
+    const e = {
+        planboxText: dq(".plan__box.click span:not(.free)"),
+        planboxTitle: dq(".plan__box.click .title"),
+        checkboxText: dqA(".card__pick__box"),
+        typeOfPlan: dq(".for__plan"),
+        typeOfPeriod: dq(".for__year"),
+        typeOfTotal: dq(".total"),
+        planResult: dqA("span.t"),
+        sum: dq(".sum"),
     };
+    for (let i = 0; i < e.checkboxText.length; ++i) {
+        const checkboxSpan = e.checkboxText[i].childNodes[3];
+        const resultSpan = e.planResult[i];
+        if (e.checkboxText[i].classList.contains("click") &&
+            checkboxSpan.dataset.plan === resultSpan.dataset.plan) {
+            resultSpan.textContent = checkboxSpan.textContent;
+        }
+        else
+            resultSpan.textContent = "$0";
+    }
+    let TYPEOFPERIOD = e.typeOfPeriod.textContent.match(/\d+/)[0];
+    values.push(TYPEOFPERIOD);
+    let PLANRESULT = e.planResult.forEach(function (el, i) {
+        var _a;
+        let v = (_a = el.textContent) === null || _a === void 0 ? void 0 : _a.match(/\d+/)[0];
+        values.push(v);
+    });
+    let SUM = values
+        .map((val) => Number(val))
+        .reduce(function (acc, val) {
+        return (acc += val);
+    });
+    // log.log(SUM);
+    if ((_a = e.planboxText) === null || _a === void 0 ? void 0 : _a.innerHTML.includes("m")) {
+        e.typeOfPlan.textContent = e.planboxTitle.textContent + " (monthly)";
+        e.typeOfPeriod.textContent = e.planboxText.textContent;
+        e.typeOfTotal.textContent = "Total (per month)";
+        e.sum.textContent = `+${SUM}/mo`;
+    }
+    else if ((_b = e.planboxText) === null || _b === void 0 ? void 0 : _b.innerHTML.includes("y")) {
+        e.typeOfPlan.textContent = e.planboxTitle.textContent + " (yearly)";
+        e.typeOfPeriod.textContent = e.planboxText.textContent;
+        e.typeOfTotal.textContent = "Total (per year)";
+        e.sum.textContent = `+$${SUM}/yr`;
+    }
+    else {
+        e.typeOfPlan.textContent = "N/A";
+        e.typeOfPeriod.textContent = "$0";
+        e.typeOfTotal.textContent = "Total (N/A)";
+        e.sum.textContent = `$${SUM}`;
+    }
+    // };
 }
 calculateSum();
 const userInteractions = (function () {
@@ -303,24 +332,29 @@ const userInteractions = (function () {
             }, WAITASEC);
         },
     });
-    on(".end", {
-        click(e) {
-            const sure = prompt("Have you made your choice ?", "");
-            log.log(sure);
-        },
-    });
     on("a", {
         click(e) {
             e.preventDefault();
             location.reload();
-        }
+        },
     });
+    function hideSteps() {
+        let frame = requestAnimationFrame(hideSteps);
+        const steps = dqA(".main__steps__box i");
+        const thank = dq(".thank");
+        for (let i = 0; i < steps.length; ++i) {
+            if (thank.classList.contains("hide"))
+                void 0;
+            else {
+                steps[i].classList.add("hide");
+                cancelAnimationFrame(frame);
+            }
+        }
+    }
+    hideSteps();
     w.onload = function () {
         const main = dq("#main");
         main.style.setProperty("animation", "main 1.2s var(--bounce-func) 1");
-        // w.onresize = function() {
-        //   log.log(body.offsetWidth, w.innerWidth)
-        // }
     };
 })();
 /**

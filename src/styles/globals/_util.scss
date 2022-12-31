@@ -122,9 +122,9 @@ button {
   }
 
   &.end {
-    color: var(--wt);
-    border-color: var(--ts);
-    background-color: var(--puplish-blue);
+    color: var(--wt) !important;
+    border-color: var(--ts) !important;
+    background-color: var(--puplish-blue) !important;
   }
 
   &.time {
@@ -231,7 +231,6 @@ hr {
   font-family: var(--font);
   font-size: var(--font-size-medium);
 }
-
 
 .hide {
   display: none !important;

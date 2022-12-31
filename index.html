@@ -28,7 +28,7 @@
         <div class="main__cards" id="cards">
           <div class="load hide"></div>
 
-          <div class="card info hide" data-step="info">
+          <div class="card info" data-step="info">
             <div class="card__info">
               <h1 class="title">Personal info</h1>
               <p class="title__sub">
@@ -109,7 +109,7 @@
             </div>
           </div>
 
-          <div class="card summary" data-step="summary">
+          <div class="card summary hide" data-step="summary">
             <div class="card__info">
               <h1 class="title">Finishing up</h1>
               <p class="title__sub">
@@ -132,47 +132,54 @@
                 <div class="select__result">
                   <p class="at-end">
                     <span class="title__sub">Online service</span>
-                    <span class="for__service t" data-plan="service">0$</span>
+                    <span class="for__service t" data-plan="service">$0</span>
                   </p>
                   <p class="at-end">
                     <span class="title__sub">Larger storage</span>
-                    <span class="for__storage t" data-plan="storage">0$</span>
+                    <span class="for__storage t" data-plan="storage">$0</span>
                   </p>
                   <p class="at-end">
                     <span class="title__sub">Customizable profile</span>
-                    <span class="for__storage t" data-plan="profile">0$</span>
+                    <span class="for__storage t" data-plan="profile">$0</span>
                   </p>
                 </div>
               </div>
 
               <div class="at-end">
                 <span class="title__sub total">Total (N/A)</span>
-                <h2 class="sum">0$</h2>
+                <h2 class="sum">$0</h2>
               </div>
             </div>
 
             <div class="card__btn two">
               <button class="btn prev navBtn">Go Back</button>
-              <button class="btn end navBtn">Confirm</button>
+              <button class="btn end next navBtn">Confirm</button>
+            </div>
+          </div>
+
+          <div class="hide thank">
+            <div class="thank__sub">
+              <img src="/assets/images/icon-thank-you.svg" alt="icon thanks" />
+              <h1 class="title">Thank you!</h1>
+              <p class="title__sub">
+                Thanks for confirming your subscription! We hope you have fun
+                using our platform. If you ever need support, please feel free
+                to email us at support@loremgaming.com.
+              </p>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="hide">
-      Thank you! Thanks for confirming your subscription! We hope you have fun
-      using our platform. If you ever need support, please feel free to email us
-      at support@loremgaming.com.
-
-      <!-- Step 5 end -->
-    </div>
-
     <div class="attr hide">
-     <p> Challenge by
-      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
-        >Frontend Mentor</a
-      >. Coded by <a href="https://github.com/nonso01" target="_blank">nonso martin</a>.</p>
+      <p>
+        Challenge by
+        <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+          >Frontend Mentor</a
+        >. Coded by
+        <a href="https://github.com/nonso01" target="_blank">nonso martin</a>.
+      </p>
     </div>
 
     <script src="/dist/main.js"></script>

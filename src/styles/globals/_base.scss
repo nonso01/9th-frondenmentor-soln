@@ -274,6 +274,22 @@
   }
 }
 
+.thank {
+  @extend .card;
+  img {
+    width: 80px;
+    height: 80px;
+  }
+  div {
+    flex: 0.2 1 auto;
+    @extend .fx-evenly;
+    flex-direction: column;
+  }
+  p {
+    text-align: var(--cn);
+  }
+}
+
 @media screen and (min-width: 1300.98px) {
   #main {
     height: 38.323rem;

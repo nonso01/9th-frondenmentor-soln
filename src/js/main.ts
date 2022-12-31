@@ -189,34 +189,64 @@ function userExperienceInput(element: list): void {
  * calculateSum - calculate all results selected by the user
  */
 function calculateSum(): void | any {
-  w.onpointerover = function () {
-    const e = {
-      planboxText: dq(".plan__box.click span:not(.free)"), // 3 box plans  with click
-      planboxTitle: dq(".plan__box.click .title"),
-      checkboxText: dqA(".card__pick__box.click span"), // input change
-      typeOfPlan: dq(".for__plan"), // arcade pro advanced
-      typeOfPeriod: dq(".for__year"), // monthly or yearly
-      typeOfTotal: dq(".total"), // type of totol yr/mo
-      planResult: dqA("span.t"), // appended result with same dataset
-      sum: dq(".sum"),
-    };
+  // w.onpointerover = function () {
+  let frame = requestAnimationFrame(calculateSum);
+  let values: number[] = [];
 
-    if (e.planboxText?.innerHTML.includes("m")) {
-      e.typeOfPlan.textContent = e.planboxTitle.textContent + " (monthly)";
-      e.typeOfPeriod.textContent = e.planboxText.textContent;
-    } else if (e.planboxText?.innerHTML.includes("y")) {
-      e.typeOfPlan.textContent = e.planboxTitle.textContent + " (yearly)";
-      e.typeOfPeriod.textContent = e.planboxText.textContent;
-    } else {
-      e.typeOfPlan.textContent = "N/A";
-      e.typeOfPeriod.textContent = "$0";
-    }
-
-    
-
-    // let a = e.typeOfPeriod.textContent.match(/\d+/)[0]
-    // log.log(a)
+  const e = {
+    planboxText: dq(".plan__box.click span:not(.free)"),
+    planboxTitle: dq(".plan__box.click .title"),
+    checkboxText: dqA(".card__pick__box"),
+    typeOfPlan: dq(".for__plan"),
+    typeOfPeriod: dq(".for__year"),
+    typeOfTotal: dq(".total"),
+    planResult: dqA("span.t"),
+    sum: dq(".sum"),
   };
+
+  for (let i = 0; i < e.checkboxText.length; ++i) {
+    const checkboxSpan: any = e.checkboxText[i].childNodes[3];
+
+    const resultSpan: any = e.planResult[i];
+    if (
+      e.checkboxText[i].classList.contains("click") &&
+      checkboxSpan.dataset.plan === resultSpan.dataset.plan
+    ) {
+      resultSpan.textContent = checkboxSpan.textContent;
+    } else resultSpan.textContent = "$0";
+  }
+
+  let TYPEOFPERIOD = e.typeOfPeriod.textContent.match(/\d+/)[0];
+  values.push(TYPEOFPERIOD);
+  let PLANRESULT = e.planResult.forEach(function (el: any, i) {
+    let v = el.textContent?.match(/\d+/)[0];
+    values.push(v);
+  });
+
+  let SUM = values
+    .map((val) => Number(val))
+    .reduce(function (acc, val) {
+      return (acc += val);
+    });
+  // log.log(SUM);
+
+  if (e.planboxText?.innerHTML.includes("m")) {
+    e.typeOfPlan.textContent = e.planboxTitle.textContent + " (monthly)";
+    e.typeOfPeriod.textContent = e.planboxText.textContent;
+    e.typeOfTotal.textContent = "Total (per month)";
+    e.sum.textContent = `+${SUM}/mo`;
+  } else if (e.planboxText?.innerHTML.includes("y")) {
+    e.typeOfPlan.textContent = e.planboxTitle.textContent + " (yearly)";
+    e.typeOfPeriod.textContent = e.planboxText.textContent;
+    e.typeOfTotal.textContent = "Total (per year)";
+    e.sum.textContent = `+$${SUM}/yr`;
+  } else {
+    e.typeOfPlan.textContent = "N/A";
+    e.typeOfPeriod.textContent = "$0";
+    e.typeOfTotal.textContent = "Total (N/A)";
+    e.sum.textContent = `$${SUM}`;
+  }
+  // };
 }
 
 calculateSum();
@@ -329,27 +359,31 @@ const userInteractions: void = (function () {
     },
   });
 
-  on(".end", {
+  on("a", {
     click(e: any) {
-      const sure: string | null = prompt("Have you made your choice ?", "");
-      log.log(sure);
+      e.preventDefault();
+      location.reload();
     },
   });
 
-  on("a", {
-    click(e: any) {
-      e.preventDefault()
-      location.reload()
+  function hideSteps() {
+    let frame = requestAnimationFrame(hideSteps);
+    const steps = dqA(".main__steps__box i");
+    const thank = dq(".thank");
+
+    for (let i = 0; i < steps.length; ++i) {
+      if (thank.classList.contains("hide")) void 0;
+      else {
+        steps[i].classList.add("hide");
+        cancelAnimationFrame(frame);
+      }
     }
-  })
+  }
+  hideSteps();
 
   w.onload = function () {
     const main: any = dq("#main");
     main.style.setProperty("animation", "main 1.2s var(--bounce-func) 1");
-
-    // w.onresize = function() {
-    //   log.log(body.offsetWidth, w.innerWidth)
-    // }
   };
 })();
 
