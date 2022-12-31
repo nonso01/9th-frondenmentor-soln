@@ -185,9 +185,7 @@ function userExperienceInput(element: list): void {
   });
 }
 
-
 function calculateSum(): void | any {
- 
   let frame = requestAnimationFrame(calculateSum);
   let values: number[] = [];
 
@@ -244,7 +242,6 @@ function calculateSum(): void | any {
     e.typeOfTotal.textContent = "Total (N/A)";
     e.sum.textContent = `$${SUM}`;
   }
- 
 }
 
 calculateSum();
@@ -296,7 +293,6 @@ const userInteractions: void = (function () {
     },
   });
 
-
   on(".card__pick__box input", {
     change(e: any) {
       const parent: HTMLDivElement = e.composedPath()[2];
@@ -304,11 +300,10 @@ const userInteractions: void = (function () {
     },
   });
 
-  
   on(".step__box i", {
     click(e: any) {
       const child: HTMLElement | null = e.composedPath()[0];
-      const c: any = dqA(".step__box i"); 
+      const c: any = dqA(".step__box i");
       const cardElement: list = dqA(".card");
 
       cardElement.forEach((element: any, i: number) => {

@@ -35,7 +35,6 @@ const appendSteps = (function () {
             filter: "summary",
         },
     ];
-    // s = the steps
     let s = data
         .map((data, i) => {
         return `<div class="main__steps__box">
@@ -68,7 +67,6 @@ function userChoices(bool) {
             free: selectType ? "2 months free" : " ",
         },
     ];
-    // the plans
     let s = data
         .map((data) => {
         return `<div class=plan__box> 
@@ -83,7 +81,6 @@ function userChoices(bool) {
         .join("");
     plans.innerHTML = s;
 }
-// called so as to display the informations
 userChoices(selectType);
 function userSelectedChoice(element) {
     const planBox = dqA(element);
@@ -204,7 +201,6 @@ function calculateSum() {
         .reduce(function (acc, val) {
         return (acc += val);
     });
-    // log.log(SUM);
     if ((_a = e.planboxText) === null || _a === void 0 ? void 0 : _a.innerHTML.includes("m")) {
         e.typeOfPlan.textContent = e.planboxTitle.textContent + " (monthly)";
         e.typeOfPeriod.textContent = e.planboxText.textContent;
@@ -250,7 +246,6 @@ const userInteractions = (function () {
         },
     });
     on(".toggle", {
-        // DOM always get updated any time selectType changes
         click(e) {
             const dom = e.target;
             const nextBro = dom.nextElementSibling;
@@ -285,7 +280,6 @@ const userInteractions = (function () {
             cardElement.forEach((element, i) => {
                 var _a, _b, _c, _d;
                 if (((_a = element === null || element === void 0 ? void 0 : element.dataset) === null || _a === void 0 ? void 0 : _a.step) === ((_b = child === null || child === void 0 ? void 0 : child.dataset) === null || _b === void 0 ? void 0 : _b.step)) {
-                    // .8s before the new step pops up
                     c[i].classList.add("click");
                     setTimeout(() => {
                         var _a, _b;
@@ -350,12 +344,6 @@ const userInteractions = (function () {
         main.style.setProperty("animation", "main 1.2s var(--bounce-func) 1");
     };
 })();
-/**
- *on - a function that adds multiple events to the selected
- elements
- * @param element = string
- * @param event = object
- */
 function on(element, event) {
     for (let key in event) {
         const e = document.querySelectorAll(element);
