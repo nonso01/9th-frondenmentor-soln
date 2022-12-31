@@ -191,18 +191,31 @@ function userExperienceInput(element: list): void {
 function calculateSum(): void | any {
   w.onpointerover = function () {
     const e = {
-      planboxText: dq(".plan__box.click span:not(.free)"),
-      checkboxText: dqA(".card__pick__box.click span"),
-      typeOfPlan: dq(".for__plan"),
-      typeOfPeriod: dq(".for__year"),
-      typeOfTotal: dq(".total"),
-      planResult: dqA("span.t"),
+      planboxText: dq(".plan__box.click span:not(.free)"), // 3 box plans  with click
+      planboxTitle: dq(".plan__box.click .title"),
+      checkboxText: dqA(".card__pick__box.click span"), // input change
+      typeOfPlan: dq(".for__plan"), // arcade pro advanced
+      typeOfPeriod: dq(".for__year"), // monthly or yearly
+      typeOfTotal: dq(".total"), // type of totol yr/mo
+      planResult: dqA("span.t"), // appended result with same dataset
       sum: dq(".sum"),
     };
 
-    e.checkboxText.forEach((elem: any) => {
-      log.log(elem.innerText);
-    });
+    if (e.planboxText?.innerHTML.includes("m")) {
+      e.typeOfPlan.textContent = e.planboxTitle.textContent + " (monthly)";
+      e.typeOfPeriod.textContent = e.planboxText.textContent;
+    } else if (e.planboxText?.innerHTML.includes("y")) {
+      e.typeOfPlan.textContent = e.planboxTitle.textContent + " (yearly)";
+      e.typeOfPeriod.textContent = e.planboxText.textContent;
+    } else {
+      e.typeOfPlan.textContent = "N/A";
+      e.typeOfPeriod.textContent = "$0";
+    }
+
+    
+
+    // let a = e.typeOfPeriod.textContent.match(/\d+/)[0]
+    // log.log(a)
   };
 }
 
@@ -323,6 +336,13 @@ const userInteractions: void = (function () {
     },
   });
 
+  on("a", {
+    click(e: any) {
+      e.preventDefault()
+      location.reload()
+    }
+  })
+
   w.onload = function () {
     const main: any = dq("#main");
     main.style.setProperty("animation", "main 1.2s var(--bounce-func) 1");
@@ -346,7 +366,7 @@ function on(element: string, event: object | any): void {
   }
 }
 
-function dq(x: string): Element | null {
+function dq(x: string): HTMLElement | any {
   return d.querySelector(x);
 }
 function dqA(x: string) {

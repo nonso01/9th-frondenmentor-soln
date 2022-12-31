@@ -61,7 +61,7 @@ html {
   font-family: var(--font), sans-serif;
 
   background-color: var(--light-gray);
-
+  position: relative;
   body,
   #app {
     width: inherit;
@@ -176,7 +176,7 @@ label:has(input.error) {
 }
 
 input {
-  border: 3px solid var(--cool-gray);
+  border: 2px solid var(--cool-gray);
   outline: none;
   border-radius: var(--rad);
   padding: 1% 3%;
@@ -231,6 +231,7 @@ hr {
   font-family: var(--font);
   font-size: var(--font-size-medium);
 }
+
 
 .hide {
   display: none !important;

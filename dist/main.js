@@ -173,8 +173,10 @@ function userExperienceInput(element) {
  */
 function calculateSum() {
     w.onpointerover = function () {
+        var _a, _b;
         const e = {
             planboxText: dq(".plan__box.click span:not(.free)"),
+            planboxTitle: dq(".plan__box.click .title"),
             checkboxText: dqA(".card__pick__box.click span"),
             typeOfPlan: dq(".for__plan"),
             typeOfPeriod: dq(".for__year"),
@@ -182,9 +184,20 @@ function calculateSum() {
             planResult: dqA("span.t"),
             sum: dq(".sum"),
         };
-        e.checkboxText.forEach((elem) => {
-            log.log(elem.innerText);
-        });
+        if ((_a = e.planboxText) === null || _a === void 0 ? void 0 : _a.innerHTML.includes("m")) {
+            e.typeOfPlan.textContent = e.planboxTitle.textContent + " (monthly)";
+            e.typeOfPeriod.textContent = e.planboxText.textContent;
+        }
+        else if ((_b = e.planboxText) === null || _b === void 0 ? void 0 : _b.innerHTML.includes("y")) {
+            e.typeOfPlan.textContent = e.planboxTitle.textContent + " (yearly)";
+            e.typeOfPeriod.textContent = e.planboxText.textContent;
+        }
+        else {
+            e.typeOfPlan.textContent = "N/A";
+            e.typeOfPeriod.textContent = "$0";
+        }
+        // let a = e.typeOfPeriod.textContent.match(/\d+/)[0]
+        // log.log(a)
     };
 }
 calculateSum();
@@ -295,6 +308,12 @@ const userInteractions = (function () {
             const sure = prompt("Have you made your choice ?", "");
             log.log(sure);
         },
+    });
+    on("a", {
+        click(e) {
+            e.preventDefault();
+            location.reload();
+        }
     });
     w.onload = function () {
         const main = dq("#main");
