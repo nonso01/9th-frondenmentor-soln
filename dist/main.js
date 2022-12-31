@@ -168,28 +168,24 @@ function userExperienceInput(element) {
         }
     });
 }
-/**
- * calculateSum - calculate all results selected by the user
- */
 function calculateSum() {
     var _a, _b;
-    // w.onpointerover = function () {
     let frame = requestAnimationFrame(calculateSum);
     let values = [];
     const e = {
         planboxText: dq(".plan__box.click span:not(.free)"),
         planboxTitle: dq(".plan__box.click .title"),
-        checkboxText: dqA(".card__pick__box"),
+        checkboxTextParent: dqA(".card__pick__box"),
         typeOfPlan: dq(".for__plan"),
         typeOfPeriod: dq(".for__year"),
         typeOfTotal: dq(".total"),
         planResult: dqA("span.t"),
         sum: dq(".sum"),
     };
-    for (let i = 0; i < e.checkboxText.length; ++i) {
-        const checkboxSpan = e.checkboxText[i].childNodes[3];
+    for (let i = 0; i < e.checkboxTextParent.length; ++i) {
+        const checkboxSpan = e.checkboxTextParent[i].childNodes[3];
         const resultSpan = e.planResult[i];
-        if (e.checkboxText[i].classList.contains("click") &&
+        if (e.checkboxTextParent[i].classList.contains("click") &&
             checkboxSpan.dataset.plan === resultSpan.dataset.plan) {
             resultSpan.textContent = checkboxSpan.textContent;
         }
@@ -227,7 +223,6 @@ function calculateSum() {
         e.typeOfTotal.textContent = "Total (N/A)";
         e.sum.textContent = `$${SUM}`;
     }
-    // };
 }
 calculateSum();
 const userInteractions = (function () {
@@ -276,18 +271,16 @@ const userInteractions = (function () {
             }
         },
     });
-    // checkbox selected
     on(".card__pick__box input", {
         change(e) {
             const parent = e.composedPath()[2];
             parent.classList.toggle("click");
         },
     });
-    // selected numbered steps used for redirection
     on(".step__box i", {
         click(e) {
             const child = e.composedPath()[0];
-            const c = dqA(".step__box i"); // select all instances of i
+            const c = dqA(".step__box i");
             const cardElement = dqA(".card");
             cardElement.forEach((element, i) => {
                 var _a, _b, _c, _d;

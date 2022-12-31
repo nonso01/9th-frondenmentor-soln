@@ -294,18 +294,27 @@
   #main {
     height: 38.323rem;
     width: 62.368rem;
+    .p {
+      width: 15rem;
+    }
   }
 }
 
 @media screen and (min-width: 1200.98px) {
   #main {
     height: 38.323rem;
+    .p {
+      width: 13rem;
+    }
   }
 }
 
 @media screen and (max-width: 1199.98px) {
   #main {
     height: 43.75rem;
+    .p {
+      width: 13rem;
+    }
   }
 }
 
@@ -319,6 +328,9 @@
   #main {
     height: 32.5rem;
     width: 85%;
+    .p {
+      width: 12rem;
+    }
   }
 }
 
@@ -406,6 +418,9 @@
           flex-direction: column;
         }
       }
+    }
+    .p {
+      width: auto;
     }
   }
 }

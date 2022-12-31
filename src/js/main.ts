@@ -185,18 +185,16 @@ function userExperienceInput(element: list): void {
   });
 }
 
-/**
- * calculateSum - calculate all results selected by the user
- */
+
 function calculateSum(): void | any {
-  // w.onpointerover = function () {
+ 
   let frame = requestAnimationFrame(calculateSum);
   let values: number[] = [];
 
   const e = {
     planboxText: dq(".plan__box.click span:not(.free)"),
     planboxTitle: dq(".plan__box.click .title"),
-    checkboxText: dqA(".card__pick__box"),
+    checkboxTextParent: dqA(".card__pick__box"),
     typeOfPlan: dq(".for__plan"),
     typeOfPeriod: dq(".for__year"),
     typeOfTotal: dq(".total"),
@@ -204,12 +202,12 @@ function calculateSum(): void | any {
     sum: dq(".sum"),
   };
 
-  for (let i = 0; i < e.checkboxText.length; ++i) {
-    const checkboxSpan: any = e.checkboxText[i].childNodes[3];
+  for (let i = 0; i < e.checkboxTextParent.length; ++i) {
+    const checkboxSpan: any = e.checkboxTextParent[i].childNodes[3];
 
     const resultSpan: any = e.planResult[i];
     if (
-      e.checkboxText[i].classList.contains("click") &&
+      e.checkboxTextParent[i].classList.contains("click") &&
       checkboxSpan.dataset.plan === resultSpan.dataset.plan
     ) {
       resultSpan.textContent = checkboxSpan.textContent;
@@ -246,7 +244,7 @@ function calculateSum(): void | any {
     e.typeOfTotal.textContent = "Total (N/A)";
     e.sum.textContent = `$${SUM}`;
   }
-  // };
+ 
 }
 
 calculateSum();
@@ -298,7 +296,7 @@ const userInteractions: void = (function () {
     },
   });
 
-  // checkbox selected
+
   on(".card__pick__box input", {
     change(e: any) {
       const parent: HTMLDivElement = e.composedPath()[2];
@@ -306,11 +304,11 @@ const userInteractions: void = (function () {
     },
   });
 
-  // selected numbered steps used for redirection
+  
   on(".step__box i", {
     click(e: any) {
       const child: HTMLElement | null = e.composedPath()[0];
-      const c: any = dqA(".step__box i"); // select all instances of i
+      const c: any = dqA(".step__box i"); 
       const cardElement: list = dqA(".card");
 
       cardElement.forEach((element: any, i: number) => {
