@@ -17,5 +17,6 @@
 
 # design and no code no icon dir
 design/
+src/styles
 style-guide.md
 *map

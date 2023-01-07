@@ -9,6 +9,7 @@
 > `ts` or `js` it depends on how you use the tools at hand.
 > so i continued implementing my small kwoledge of `js`
 
-### Here is a screenshoot
-![todo]()
+### no screenshoot
+
+## [link here](https://nonso01project9.netlify.app)
 
